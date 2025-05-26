@@ -1,0 +1,56 @@
+%include "stdcall.inc"
+
+global main
+
+extern program
+extern printf
+extern getchar
+
+section .data
+
+program_exit_str:
+    db 10, "The process exited with code %i (0x%x).", 10, "Press Enter to close this window . . ."
+
+section .text
+
+main:
+    push rbx
+    push rdi
+    push rsi
+    push r12
+    push r13
+    push r14
+    push r15  ; reserve for when making calls to standard C functions
+
+    xor eax, eax
+    xor ebx, ebx
+    xor ecx, ecx
+    xor edx, edx
+    xor edi, edi
+    xor esi, esi
+    xor r8d, r8d
+    xor r9d, r9d
+    xor r10d, r10d
+    xor r11d, r11d
+    xor r12d, r12d
+    xor r13d, r14d
+    xor r14d, r14d
+    xor r15d, r15d
+
+    call program
+
+    mov rdi, program_exit_str
+    mov esi, eax
+    mov edx, eax
+    stdcall printf
+    stdcall getchar
+
+    mov eax, esi
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+    pop rsi
+    pop rdi
+    pop rbx
+    ret

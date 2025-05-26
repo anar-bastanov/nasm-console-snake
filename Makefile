@@ -1,61 +1,61 @@
-# Compiler and tools
-CC := gcc
+# ========== Directory ==========
+SRC_DIR     := src
+INCLUDE_DIR := include
+BUILD_DIR   := build
+BIN_DIR     := bin
+
+# ========== Tools ==========
+CC  := gcc
 ASM := nasm
 
-# Platform detection
+# ========== Platform Detection ==========
 ifeq ($(OS),Windows_NT)
-    EXE := .exe
-    DEL := del /Q
-    MKDIR = if not exist $1 mkdir $1
-    ASMFLAGS := -f win64 -dWINDOWS
+    EXE       := .exe
+    DEL       := del /Q
+    MKDIR     = if not exist $1 mkdir $1
+    ASMFLAGS  := -f win64 -dWINDOWS -I$(INCLUDE_DIR)/
 else
-    EXE :=
-    DEL := rm -f
-    MKDIR = mkdir -p $1
-    ASMFLAGS := -f elf64 -dLINUX
+    EXE       :=
+    DEL       := rm -f
+    MKDIR     = mkdir -p $1
+    ASMFLAGS  := -f elf64 -dLINUX -I$(INCLUDE_DIR)/
 endif
 
-# Flags
-CFLAGS := -Wall -O2
+# ========== Flags ==========
+CFLAGS  := -Wall -O2
 LDFLAGS :=
 
-# Folders
-SRC_DIR := src
-BUILD_DIR := build
-BIN_DIR := bin
-TARGET := $(BIN_DIR)/snake$(EXE)
-
-# Source files
-CSOURCES := $(wildcard $(SRC_DIR)/*.c)
+# ========== Derived ==========
+CSOURCES   := $(wildcard $(SRC_DIR)/*.c)
 ASMSOURCES := $(wildcard $(SRC_DIR)/*.nasm)
+COBJS 	   := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(CSOURCES))
+ASMOBJS    := $(patsubst $(SRC_DIR)/%.nasm,$(BUILD_DIR)/%.o,$(ASMSOURCES))
+OBJS       := $(COBJS) $(ASMOBJS)
+TARGET     := $(BIN_DIR)/snake$(EXE)
 
-# Object files
-COBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(CSOURCES))
-ASMOBJS := $(patsubst $(SRC_DIR)/%.nasm,$(BUILD_DIR)/%.o,$(ASMSOURCES))
-OBJS := $(COBJS) $(ASMOBJS)
-
-# Default target
+# ========== Default Target ==========
 all: $(TARGET)
 
-# Ensure build/bin directories exist
+# ========== Directory Rules ==========
 $(BUILD_DIR):
 	$(call MKDIR,$@)
 
 $(BIN_DIR):
 	$(call MKDIR,$@)
 
-# Compile C source files
+# ========== C Compilation ==========
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Assemble NASM source files
+# ========== NASM Assembly ==========
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.nasm | $(BUILD_DIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-# Link all object files
+# ========== Linking ==========
 $(TARGET): $(OBJS) | $(BIN_DIR)
 	$(CC) $(OBJS) $(LDFLAGS) -o $@
 
+# ========== Run Program ==========
 run: all
 ifeq ($(OS),Windows_NT)
 	cmd /c start "" "$(TARGET)"
@@ -63,14 +63,15 @@ else
 	$(TARGET)
 endif
 
-# Clean build and binary files
+# ========== Clean Build Files ==========
 clean:
 ifeq ($(OS),Windows_NT)
-	-@if exist $(BUILD_DIR) del /Q $(BUILD_DIR)\*.o
-	-@if exist $(BIN_DIR) del /Q $(BIN_DIR)\*$(EXE)
+	-$(DEL) "$(BUILD_DIR)\\*.o"
+	-$(DEL) "$(BIN_DIR)\\*$(EXE)"
 else
 	-$(DEL) $(BUILD_DIR)/*.o
 	-$(DEL) $(BIN_DIR)/*$(EXE)
 endif
 
+# ========== Phony Targets ==========
 .PHONY: all run clean
