@@ -1,4 +1,4 @@
-%include "stdcall.inc"
+%include "callclib.inc"
 
 global main
 
@@ -20,7 +20,7 @@ main:
     push r12
     push r13
     push r14
-    push r15  ; reserve for when making calls to standard C functions
+    push r15
 
     xor eax, eax
     xor ebx, ebx
@@ -39,11 +39,11 @@ main:
 
     call program
 
-    mov rdi, program_exit_str
-    mov esi, eax
-    mov edx, eax
-    stdcall printf
-    stdcall getchar
+    mov r8, program_exit_str
+    mov r9d, eax
+    mov r9d, eax
+    callclib printf
+    callclib getchar
 
     mov eax, esi
     pop r15
