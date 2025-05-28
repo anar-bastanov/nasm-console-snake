@@ -6,6 +6,9 @@ extern printf
 
 section .data
 
+newline_str:
+    db 10, 0
+
 init_str:
     db "Hello %i!", 10, 0
 
@@ -26,7 +29,9 @@ program:
 
     mov r8, init_str
     mov r9d, 12
-    callclib printf
+    callclib 2, printf
+    mov r8, newline_str
+    callclib 1, printf
 
     mov r9d, 5
 
@@ -34,22 +39,24 @@ program:
     call game_loop
 
     mov r8, loop_str
-    callclib printf
+    callclib 2, printf
     
     dec r9d
     jg .loop
 
     call game_exit
 
+    mov r8, newline_str
+    callclib 1, printf
     mov r8, bye_str
     mov r9d, 26
     mov r10d, 2612
-    callclib printf
+    callclib 3, printf
 
     pop r10
     pop r9
     pop r8
-    mov eax, 126
+    xor eax, eax
     ret
 
 game_init:

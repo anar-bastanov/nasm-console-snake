@@ -22,7 +22,7 @@ sudo apt install nasm make gcc
 * `gcc` (via [MinGW-w64](https://www.mingw-w64.org/), MSYS2, or WSL)
 * `make` (provided by MSYS2 or WSL)
 
-> If you're using WSL (Windows Subsystem for Linux), install the Linux prerequisites using your distribution's package manager.
+> If you're using WSL (Windows Subsystem for Linux), install the Linux prerequisites using your distro’s package manager.
 
 ## Building
 
@@ -35,7 +35,7 @@ make
 This will:
 
 * Assemble `.nasm` and `.c` files from `src/`
-* Link object files located in the `build/` directory using `gcc` to ensure compatibility with standard C functions
+* Link the resulting object files from `build/` using `gcc` (for compatibility with standard C functions)
 * Output the executable into the `bin/` directory
 
 ## Cleaning
@@ -46,7 +46,7 @@ To remove build artifacts:
 make clean
 ```
 
-This deletes files from `build/` and `bin/`.
+This deletes all files from the `build/` and `bin/` directory.
 
 ## Output
 

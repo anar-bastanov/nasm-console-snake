@@ -9,7 +9,7 @@ extern getchar
 section .data
 
 program_exit_str:
-    db 10, "The process exited with code %i (0x%x).", 10, "Press Enter to close this window . . ."
+    db 10, "The process exited with code %i (0x%x).", 10, "Press Enter to close this window . . .", 0
 
 section .text
 
@@ -41,11 +41,11 @@ main:
 
     mov r8, program_exit_str
     mov r9d, eax
-    mov r9d, eax
-    callclib printf
+    mov r10d, eax
+    callclib 3, printf
     callclib getchar
 
-    mov eax, esi
+    mov eax, r9d
     pop r15
     pop r14
     pop r13
