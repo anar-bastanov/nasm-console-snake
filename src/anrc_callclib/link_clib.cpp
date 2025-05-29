@@ -3,7 +3,10 @@
 extern "C"
 {
     #include <cstdio>
+    #include <cmath>
+    #include <ctime>
     #include <cwchar>
+    #include <clocale>
 }
 
 #define extern ,(void*)
