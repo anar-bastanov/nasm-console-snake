@@ -118,9 +118,15 @@
 %endif
 
 %macro __callclib_var 1
-    %if %1 >= 0 && %1 <= CALLCLIB_MAX_ARG_COUNT
-    %else
-        %error Invalid number of function parameters.
+    %define VALID
+    %ifnnum %1
+        %undef VALID
+    %endif
+    %ifn %1 >= 0 && %1 <= CALLCLIB_MAX_ARG_COUNT
+        %undef VALID
+    %endif
+    %ifndef VALID
+        %fatal Invalid number of function parameters.
     %endif
 
     global __callclib%1

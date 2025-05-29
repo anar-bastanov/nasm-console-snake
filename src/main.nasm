@@ -3,8 +3,6 @@
 global main
 
 extern program
-extern printf
-extern getchar
 
 section .data
 

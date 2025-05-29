@@ -1,22 +1,15 @@
 %include "callclib.inc"
+%include "snake.inc"
 
 global program
 
-extern printf
-
 section .data
 
-newline_str:
-    db 10, 0
+test_str:
+    db "Hello %i %i.", 10, 0
 
-init_str:
-    db "Hello %i!", 10, 0
-
-loop_str:
-    db "Looping %i...", 10, 0
-
-bye_str:
-    db "Goodbye %i and %i!", 10, 0
+test_wtr:
+    dw "G", "o", "o", "d", "b", "y", "e", 10, 0
 
 section .text
 
@@ -27,31 +20,23 @@ program:
 
     call game_init
 
-    mov r8, init_str
-    mov r9d, 12
-    callclib 2, printf
-    mov r8, newline_str
-    callclib 1, printf
-
     mov r9d, 5
 
 .loop:
     call game_loop
 
-    mov r8, loop_str
-    callclib 2, printf
-    
     dec r9d
     jg .loop
 
     call game_exit
 
-    mov r8, newline_str
-    callclib 1, printf
-    mov r8, bye_str
-    mov r9d, 26
-    mov r10d, 2612
+    mov r8, test_str
+    mov r9, 69
+    mov r10, 420
     callclib 3, printf
+
+    mov r8, test_wtr
+    callclib 1, wprintf
 
     pop r10
     pop r9
