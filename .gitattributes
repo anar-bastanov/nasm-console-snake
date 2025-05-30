@@ -1,0 +1,3 @@
+*.inc linguist-language=nasm
+*.bat linguist-detectable=false
+*.py linguist-detectable=false
