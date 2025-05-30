@@ -1,4 +1,6 @@
-%include "callclib_argc.inc"
+%include "_callclib_argc.internal.inc"
+
+%define NON_NEGATIVE(value) %cond(value < 0, 0, value)
 
 %ifdef WINDOWS
     %macro PRESERVATION 0
@@ -35,13 +37,11 @@
         %if %1 >= 6
             mov [rsp + 8], r13
         %endif
-        %assign iters %1 - 7 + 1
-        %assign iters (iters < 0) ? 0 : iters
         %assign j 0
-        %rep iters
+        %rep NON_NEGATIVE(%1 - 7 + 1)
             mov rax, [r14 + 8 + 8 + j * 8]
             mov [rsp + (j + 2) * 8], rax
-        %assign j j + 1
+            %assign j j + 1
         %endrep
         sub rsp, 32
     %endmacro
@@ -92,13 +92,11 @@
         %if %1 >= 6
             mov r9,  r13
         %endif
-        %assign iters %1 - 7 + 1
-        %assign iters (iters < 0) ? 0 : iters
         %assign j 0
-        %rep iters
+        %rep NON_NEGATIVE(%1 - 7 + 1)
             mov rax, [r14 + 8 + 8 + j * 8]
             mov [rsp + j * 8], rax
-        %assign j j + 1
+            %assign j j + 1
         %endrep
     %endmacro
     %macro RESTORATION 0
@@ -118,14 +116,7 @@
 %endif
 
 %macro __callclib_var 1
-    %define VALID
-    %ifnnum %1
-        %undef VALID
-    %endif
-    %ifn %1 >= 0 && %1 <= CALLCLIB_MAX_ARG_COUNT
-        %undef VALID
-    %endif
-    %ifndef VALID
+    %if %isnnum(%1) || %1 < 0 || %1 > CALLCLIB_MAX_ARG_COUNT
         %fatal Invalid number of function parameters.
     %endif
 
@@ -144,5 +135,5 @@ section .text
 %assign i 0
 %rep CALLCLIB_MAX_ARG_COUNT + 1
     __callclib_var i
-%assign i i + 1
+    %assign i i + 1
 %endrep

@@ -1,4 +1,5 @@
 %include "callclib.inc"
+%include "wchar.inc"
 %include "snake.inc"
 
 global program
@@ -6,10 +7,13 @@ global program
 section .data
 
 test_str:
-    db "Hello %i %i.", 10, 0
+    db "Hello %i %i", 10, 0
 
-test_wtr:
-    dw "G", "o", "o", "d", "b", "y", "e", 10, 0
+test_wcs:
+    dwcs "Goodbye", " ", "%Is!", 10, 0
+
+name_wcs:
+    dwcs "Anar", 0
 
 section .text
 
@@ -33,10 +37,11 @@ program:
     mov r8, test_str
     mov r9, 69
     mov r10, 420
-    callclib 3, printf
+    CALLCLIB 3, printf
 
-    mov r8, test_wtr
-    callclib 1, wprintf
+    mov r8, test_wcs
+    mov r9, name_wcs
+    callclib 2, wprintf
 
     pop r10
     pop r9

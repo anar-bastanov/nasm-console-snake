@@ -14,5 +14,5 @@ extern "C"
 constexpr const std::initializer_list<void *> &_ =
 {
     nullptr
-    #include "anrc_callclib/clib.inc"
+    #include "_clib.internal.inc"
 };

@@ -1,24 +1,17 @@
 %ifndef __CALLCLIB_INC__
 %define __CALLCLIB_INC__
 
-%include "callclib_argc.inc"
-%include "clib.inc"
+%include "_callclib_argc.internal.inc"
+%include "_clib.internal.inc"
 
 %assign i 0
 %rep CALLCLIB_MAX_ARG_COUNT + 1
     extern __callclib%[i]
-%assign i i + 1
+    %assign i i + 1
 %endrep
 
-%macro callclib 2
-    %define VALID
-    %ifnnum %1
-        %undef VALID
-    %endif
-    %ifn %1 >= 0 && %1 <= CALLCLIB_MAX_ARG_COUNT
-        %undef VALID
-    %endif
-    %ifndef VALID
+%imacro callclib 2
+    %if %isnnum(%1) || %1 < 0 || %1 > CALLCLIB_MAX_ARG_COUNT
         %error Invalid number of function parameters.
     %endif
 
@@ -30,7 +23,7 @@
     call __callclib%1
 %endmacro
 
-%macro callclib 1
+%imacro callclib 1
     %ifnid %1
         %error Expected an identifier.
     %endif
