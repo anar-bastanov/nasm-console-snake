@@ -1,5 +1,4 @@
 %include "callclib.inc"
-%include "wchar.inc"
 %include "snake.inc"
 
 global program
@@ -7,21 +6,17 @@ global program
 section .data
 
 test_str:
-    db "Hello %i %i", 10, 0
+    db "╔═╗", 10
+    db "║█║", 10
+    db "╚═╝", 10, 0
 
-test_wcs:
-    dwcs "Goodbye", " ", "%Is!", 10, 0
-
-name_wcs:
-    dwcs "Anar", 0
+utf8_locale_str:
+    db ".UTF8", 0
 
 section .text
 
 program:
-    push r8
-    push r9
-    push r10
-
+    call env_init
     call game_init
 
     mov r9d, 5
@@ -34,22 +29,28 @@ program:
 
     call game_exit
 
-    mov r8, test_str
-    mov r9, 69
-    mov r10, 420
-    CALLCLIB 3, printf
-
-    mov r8, test_wcs
-    mov r9, name_wcs
-    callclib 2, wprintf
-
-    pop r10
-    pop r9
-    pop r8
     xor eax, eax
     ret
 
+env_init:
+    push r8
+    push r9
+
+    xor r8d, r8d
+    mov r9, utf8_locale_str
+    callclib 2, setlocale
+
+    pop r9
+    pop r8
+    ret
+
 game_init:
+    push r8
+
+    mov r8, test_str
+    callclib 1, printf
+
+    pop r8
     ret
 
 game_exit:
