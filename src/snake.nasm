@@ -1,17 +1,11 @@
-%include "callclib.inc"
+%include "anrc/callclib.inc"
+; %include "styling/ansi.inc"
 %include "snake.inc"
+%include "static_strings.inc"
 
 global program
 
 section .data
-
-test_str:
-    db "╔═╗", 10
-    db "║█║", 10
-    db "╚═╝", 10, 0
-
-utf8_locale_str:
-    db ".UTF8", 0
 
 section .text
 
@@ -21,11 +15,11 @@ program:
 
     mov r9d, 5
 
-.loop:
-    call game_loop
+    .loop:
+        call game_loop
 
-    dec r9d
-    jg .loop
+        dec r9d
+        jg .loop
 
     call game_exit
 
@@ -36,7 +30,7 @@ env_init:
     push r8
     push r9
 
-    xor r8d, r8d
+    mov r8d, [c_LC_ALL]
     mov r9, utf8_locale_str
     callclib 2, setlocale
 
