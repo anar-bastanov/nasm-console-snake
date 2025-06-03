@@ -1,5 +1,5 @@
 %include "anrc/callclib.inc"
-; %include "styling/ansi.inc"
+%include "styling/ansi.inc"
 %include "snake.inc"
 %include "static_strings.inc"
 

@@ -4,7 +4,7 @@ global main
 
 extern program
 
-section .data
+section .rodata
 
 program_exit_str:
     db 10, "The process exited with code %i (0x%x).", 10, "Press Enter to close this window . . .", 0
