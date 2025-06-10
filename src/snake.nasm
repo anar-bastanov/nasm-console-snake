@@ -1,5 +1,4 @@
 %include "anrc/callclib.inc"
-%include "styling/ansi.inc"
 %include "snake.inc"
 %include "static_strings.inc"
 
@@ -42,7 +41,9 @@ game_init:
     push r8
 
     mov r8, test_str
-    callclib 1, printf
+    mov r9d, 4
+    mov r10d, 26
+    callclib 3, printf
 
     pop r8
     ret

@@ -1,4 +1,4 @@
-%include "_callclib_argc.internal.inc"
+%include "anrc/_callclib_argc.internal.inc"
 
 %define NON_NEGATIVE(value) %cond(value < 0, 0, value)
 
