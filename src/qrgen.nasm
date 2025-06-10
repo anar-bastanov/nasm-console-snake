@@ -1,5 +1,5 @@
 %include "anrc/callclib.inc"
-%include "snake.inc"
+%include "qrgen.inc"
 %include "static_strings.inc"
 
 global program
