@@ -1,4 +1,5 @@
 %include "anrc/callclib.inc"
+%include "argparse/parser.inc"
 
 global main
 
@@ -12,6 +13,8 @@ program_exit_str:
 section .text
 
 main:
+    call args_collect
+
     push rbx
     push rdi
     push rsi

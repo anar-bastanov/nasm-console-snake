@@ -26,9 +26,11 @@ def main():
 
     print("[*] Running...")
     if platform.system() == "Windows":
-        subprocess.Popen(f'start cmd /c "{EXE_PATH}"', shell=True)
+        args = " ".join(f'"{arg}"' for arg in sys.argv[1:])
+        exe_cmd = f'"{EXE_PATH}" {args}'
+        subprocess.Popen(f'start \"\" {exe_cmd}', shell=True)
     else:
-        subprocess.run([EXE_PATH])
+        subprocess.run([EXE_PATH] + sys.argv[1:])
 
 if __name__ == "__main__":
     main()

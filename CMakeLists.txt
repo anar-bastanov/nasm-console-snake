@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Collect include paths (for NASM)
 set(NASM_INCLUDE_DIRS "")
 foreach(dir IN ITEMS
-    ${CMAKE_SOURCE_DIR}/src/include
+    ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/lib
 )
     if(EXISTS "${dir}")

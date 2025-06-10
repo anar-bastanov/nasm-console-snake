@@ -1,6 +1,6 @@
 %include "anrc/callclib.inc"
-%include "qrgen.inc"
-%include "static_strings.inc"
+%include "include/qrgen.inc"
+%include "include/static_strings.inc"
 
 global program
 
