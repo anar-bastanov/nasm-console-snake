@@ -2,8 +2,6 @@
 %define __CALLCLIB_INC__
 
 %include "anrc/_callclib_argc.internal.inc"
-%include "anrc/_clib_consts.internal.inc"
-%include "anrc/_clib.internal.inc"
 
 %assign i 0
 %rep CALLCLIB_MAX_ARG_COUNT + 1
@@ -20,6 +18,7 @@
         %error Expected an identifier.
     %endif
 
+    extern %2
     lea r15, [rel %2]
     call __callclib%1
 %endmacro
@@ -29,8 +28,17 @@
         %error Expected an identifier.
     %endif
 
+    extern %1
     lea r15, [rel %1]
     call __callclib0
 %endmacro
+
+%macro __c_const 1
+    %xdefine __const_name %tok(%substr(%1, 2, -2))
+    extern __cc_%[__const_name]
+    %define cc_%[__const_name] rel __cc_%[__const_name]
+%endmacro
+
+%include "anrc/_clib_consts.internal.txt"
 
 %endif
