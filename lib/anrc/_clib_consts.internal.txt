@@ -3,10 +3,6 @@ __c_const (FE_TONEAREST)
 __c_const (FE_TOWARDZERO)
 __c_const (FE_UPWARD)
 
-__c_const (STDOUT_FILENO)
-__c_const (STDIN_FILENO)
-__c_const (STDERR_FILENO)
-
 __c_const (stdin)
 __c_const (stdout)
 __c_const (stderr)

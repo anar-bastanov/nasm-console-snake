@@ -50,11 +50,27 @@ foreach(path ${NASM_INCLUDE_DIRS})
     list(APPEND NASM_FLAGS -I${path})
 endforeach()
 
-# Apply NASM properties
+# Use target_compile_options to avoid COMPILE_FLAGS issues on Linux
+foreach(path ${NASM_INCLUDE_DIRS})
+    list(APPEND NASM_FLAGS -I${path})
+endforeach()
+
+# Set NASM format
+if(WIN32)
+    set(NASM_FORMAT win64)
+    target_compile_definitions(qrgen PRIVATE WINDOWS)
+else()
+    set(NASM_FORMAT elf64)
+    target_compile_definitions(qrgen PRIVATE LINUX)
+endif()
+
+# Apply NASM settings
 foreach(src ${ASM_SOURCES})
     set_source_files_properties(${src} PROPERTIES
         LANGUAGE ASM_NASM
         NASM_OBJ_FORMAT ${NASM_FORMAT}
-        COMPILE_FLAGS "${NASM_FLAGS}"
     )
 endforeach()
+
+# Apply include flags to the target (handles Linux properly)
+target_compile_options(qrgen PRIVATE ${NASM_FLAGS})

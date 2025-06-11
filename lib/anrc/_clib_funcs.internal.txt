@@ -137,7 +137,7 @@ __c_func fclose
 __c_func remove
 __c_func rename
 __c_func tmpfile
-__c_func tmpnam
+// __c_func tmpnam
 
 __c_func fread
 __c_func fwrite
@@ -157,7 +157,7 @@ __c_func ungetc
 
 __c_func puts
 __c_func fputs
-__c_func gets
+// __c_func gets
 __c_func fgets
 
 __c_func printf

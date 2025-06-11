@@ -28,7 +28,7 @@ def main():
     argv = sys.argv
     argv[0] = EXE_PATH
 
-    if (new_window := argv[1] == "--new-window"):
+    if (new_window := len(argv) > 1 and argv[1] == "--new-window"):
         argv.pop(1)
 
     if platform.system() == "Windows" and new_window:

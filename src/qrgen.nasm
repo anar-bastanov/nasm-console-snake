@@ -25,7 +25,7 @@ env_init:
     push r9
 
     mov r8d, [cc_LC_ALL]
-    mov r9, utf8_locale_str
+    lea r9, [rel utf8_locale_str]
     callclib 2, setlocale
 
     pop r9
@@ -35,7 +35,7 @@ env_init:
 func:
     push r8
 
-    mov r8, test_str
+    lea r8, [rel test_str]
     mov r9d, 4
     mov r10d, 26
     callclib 3, printf
