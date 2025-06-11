@@ -1,4 +1,4 @@
-global args_collect
+global _args_collect
 global args_count
 global args_get
 
@@ -22,7 +22,7 @@ argv:
 
 section .text
 
-args_collect:
+_args_collect:
     mov [rel argv], argv_reg
     mov [rel argc], argc_reg
     ret

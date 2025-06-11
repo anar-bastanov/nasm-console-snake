@@ -19,18 +19,24 @@ def run_command(command, cwd=None):
 
 def main():
     print("[*] Configuring...")
-    run_command(f"cmake -S \"{ROOT_DIR}\" -B \"{BUILD_DIR}\"")
+    run_command(f'cmake -S "{ROOT_DIR}" -B "{BUILD_DIR}"')
 
     print("[*] Building...")
-    run_command(f"cmake --build \"{BUILD_DIR}\"")
+    run_command(f'cmake --build "{BUILD_DIR}"')
 
     print("[*] Running...")
-    if platform.system() == "Windows":
-        args = " ".join(f'"{arg}"' for arg in sys.argv[1:])
-        exe_cmd = f'"{EXE_PATH}" {args}'
-        subprocess.Popen(f'start \"\" {exe_cmd}', shell=True)
+    argv = sys.argv
+    argv[0] = EXE_PATH
+
+    if (new_window := argv[1] == "--new-window"):
+        argv.pop(1)
+
+    if platform.system() == "Windows" and new_window:
+        args_str = subprocess.list2cmdline(argv)
+        subprocess.Popen(f'start "" {args_str}', shell=True)
     else:
-        subprocess.run([EXE_PATH] + sys.argv[1:])
+        print("------------------------------\n")
+        subprocess.run(argv)
 
 if __name__ == "__main__":
     main()

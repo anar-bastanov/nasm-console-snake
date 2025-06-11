@@ -2,18 +2,18 @@
 %include "argparse/parser.inc"
 
 global main
+global program_exit_early
 
-extern program
+extern program_entry
 
-section .rodata
+section .bss
 
-program_exit_str:
-    db 10, "The process exited with code %i (0x%x).", 10, "Press Enter to close this window . . .", 0
+program_stack_pointer resq 1
 
 section .text
 
 main:
-    call args_collect
+    call _args_collect
 
     push rbx
     push rdi
@@ -22,6 +22,7 @@ main:
     push r13
     push r14
     push r15
+    mov [rel program_stack_pointer], rsp
 
     xor eax, eax
     xor ebx, ebx
@@ -37,16 +38,10 @@ main:
     xor r13d, r14d
     xor r14d, r14d
     xor r15d, r15d
+    call program_entry
 
-    call program
-
-    mov r8, program_exit_str
-    mov r9d, eax
-    mov r10d, eax
-    callclib 3, printf
-    callclib getchar
-
-    mov eax, r9d
+.restore_stack:
+    mov rsp, [rel program_stack_pointer]
     pop r15
     pop r14
     pop r13
@@ -55,3 +50,19 @@ main:
     pop rdi
     pop rbx
     ret
+
+program_exit_early:
+    test r8d, r8d
+    mov eax, r8d
+    jz main.restore_stack
+
+    test r9, r9
+    mov r10d, eax
+    jz main.restore_stack
+
+    mov r8, r9
+    mov r9, [cc_stderr]
+    callclib 2, fputs
+
+    mov eax, r10d
+    jmp main.restore_stack
