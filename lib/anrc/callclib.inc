@@ -19,7 +19,13 @@
     %endif
 
     extern %2
-    lea r15, [rel %2]
+
+    %ifdef CLIB_PIC_CALL
+        lea r15, [rel %2 wrt ..plt]
+    %else
+        lea r15, [rel %2]
+    %endif
+
     call __callclib%1
 %endmacro
 
@@ -29,7 +35,13 @@
     %endif
 
     extern %1
-    lea r15, [rel %1]
+
+    %ifdef CLIB_PIC_CALL
+        lea r15, [rel %1 wrt ..plt]
+    %else
+        lea r15, [rel %1]
+    %endif
+
     call __callclib0
 %endmacro
 

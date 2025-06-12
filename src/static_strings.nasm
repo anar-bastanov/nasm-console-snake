@@ -9,7 +9,7 @@ test_str:
     db "aaaa"
     db ANSI_CURSOR_MOVE_DOWN()
     db "bb", 10
-    db ANSI_CURSOR_MOVE_NEXT_LINE_BY(1 + 1)
+    db ANSI_CURSOR_MOVE_NEXT_LINE_BY(2)
     db ANSI_SET_FG(ANSI_RGB(120, 80, 170)), "Hello there! ", 10
     db ANSI_SET_FG(ANSI_GREEN), "My name is "
     db ANSI_SET_FG_MD(ANSI_RED, ANSI_UNDERLINE, ANSI_BOLD), "NOT"
