@@ -49,6 +49,20 @@ else()
     check_pie_supported()
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     target_compile_definitions(qrgen PRIVATE CLIB_PIC_CALL)
+
+    # Add noexecstack linker flag only on Unix-like systems
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack")
+endif()
+
+# Optimize linker output for all major compilers
+if(MSVC)
+    # Visual Studio
+    add_compile_options(/Gy)
+    add_link_options(/OPT:REF /OPT:ICF /DEBUG:NONE)
+elseif(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    # MinGW GCC or Clang (even on Windows)
+    add_compile_options(-ffunction-sections -fdata-sections -g0)
+    add_link_options(-Wl,--gc-sections -Wl,-s)
 endif()
 
 # NASM include flags

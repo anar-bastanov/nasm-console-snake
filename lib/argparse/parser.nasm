@@ -1,6 +1,7 @@
 global _args_collect
-global args_count
-global args_get
+global args_get_count
+global args_get_value
+global args_initialize
 
 %ifdef WINDOWS
     %define argc_reg rcx
@@ -27,11 +28,14 @@ _args_collect:
     mov [rel argc], argc_reg
     ret
 
-args_count:
+args_get_count:
     mov eax, [rel argc]
     ret
 
-args_get:
+args_get_value:
     mov rax, [rel argv]
     mov rax, [rax + r8 * 8]
+    ret
+
+args_initialize:
     ret

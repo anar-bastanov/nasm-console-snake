@@ -46,9 +46,7 @@
 %endmacro
 
 %macro __c_const 1
-    %xdefine __const_name %tok(%substr(%1, 2, -2))
-    extern __cc_%[__const_name]
-    %define cc_%[__const_name] rel __cc_%[__const_name]
+    extern cc_%tok(%substr(%1, 2, -2))
 %endmacro
 
 %include "anrc/_clib_consts.internal.txt"

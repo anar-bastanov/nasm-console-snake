@@ -61,7 +61,7 @@ program_exit_early:
     jz main.restore_stack
 
     mov r8, r9
-    mov r9, [cc_stderr]
+    mov r9, [rel cc_stderr]
     callclib 2, fputs
 
     mov eax, r10d
