@@ -1,6 +1,5 @@
 %include "anrc/callclib.inc"
 %include "include/qrgen.inc"
-%include "include/static_strings.inc"
 %include "include/config.inc"
 
 global program_entry
@@ -9,7 +8,8 @@ section .text
 
 program_entry:
     call initialize_environment
-    call configure_mode
+
+    call parse_user_options
 
     xor eax, eax
     ret
@@ -25,3 +25,8 @@ initialize_environment:
     pop r9
     pop r8
     ret
+
+section .rodata
+
+str_utf8_locale:
+    db ".UTF8", 0

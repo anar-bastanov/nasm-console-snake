@@ -4,17 +4,19 @@
 global main
 global program_exit_early
 
+global main_args_container
+
 extern program_entry
 
 section .bss
 
-program_stack_pointer resq 1
+program_stack_pointer: resq 1
+
+main_args_container: resb args_container_t_size
 
 section .text
 
 main:
-    call _args_collect
-
     push rbx
     push rdi
     push rsi
@@ -24,13 +26,16 @@ main:
     push r15
     mov [rel program_stack_pointer], rsp
 
+    lea r8, [rel main_args_container]
+    call _args_collect_from_main
+
     xor eax, eax
     xor ebx, ebx
     xor ecx, ecx
     xor edx, edx
     xor edi, edi
     xor esi, esi
-    xor r8d, r8d
+    ; xor r8d, r8d
     xor r9d, r9d
     xor r10d, r10d
     xor r11d, r11d
