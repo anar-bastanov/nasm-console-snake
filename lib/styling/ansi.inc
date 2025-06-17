@@ -1,5 +1,5 @@
-%ifndef __ANSI_INC__
-%define __ANSI_INC__
+%ifndef __ANSI_INTERNAL_INC__
+%define __ANSI_INTERNAL_INC__
 
 %include "styling/_macro_utils.internal.inc"
 

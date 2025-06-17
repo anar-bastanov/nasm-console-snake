@@ -1,6 +1,6 @@
-%include "anrc/callclib.inc"
-%include "include/qrgen.inc"
-%include "include/config.inc"
+%include "anrc/all"
+%include "qrgen.inc"
+%include "cli_options.inc"
 
 global program_entry
 

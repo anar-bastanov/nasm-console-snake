@@ -1,0 +1,4 @@
+%ifndef __MEMUTILS_LIB_ALL__
+%define __MEMUTILS_LIB_ALL__
+
+%endif

@@ -3,7 +3,7 @@ global string_n_size
 global string_length
 global string_n_length
 
-section .text
+section .text.strutils.properties
 
 string_size:
     xor eax, eax

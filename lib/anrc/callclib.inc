@@ -1,7 +1,7 @@
 %ifndef __CALLCLIB_INC__
 %define __CALLCLIB_INC__
 
-%include "anrc/_callclib_argc.internal.inc"
+%include "anrc/callclib_argc.inc"
 
 %assign i 0
 %rep CALLCLIB_MAX_ARG_COUNT + 1

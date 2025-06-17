@@ -1,5 +1,5 @@
-%ifndef __ARGS_CONTAINER_INTERNAL_INC__
-%define __ARGS_CONTAINER_INTERNAL_INC__
+%ifndef __ARGS_CONTAINER_INC__
+%define __ARGS_CONTAINER_INC__
 
 struc args_container_t
   .options_list: resq 1

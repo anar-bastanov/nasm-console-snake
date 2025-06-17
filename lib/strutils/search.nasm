@@ -3,7 +3,7 @@ global string_n_find_char
 global string_find_char_last
 global string_n_find_char_last
 
-section .text
+section .text.strutils.search
 
 string_find_char:
     mov rax, r8

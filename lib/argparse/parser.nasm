@@ -1,4 +1,5 @@
-%include "argparse/_args_container.internal.inc"
+%include "strutils/all"
+%include "argparse/args_container.inc"
 
 global _args_collect_from_main
 global args_initialize

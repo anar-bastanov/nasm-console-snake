@@ -1,5 +1,5 @@
-%ifndef __STRING_INC__
-%define __STRING_INC__
+%ifndef __STRUTILS_LIB_ALL__
+%define __STRUTILS_LIB_ALL__
 
 %define NULL 0
 

@@ -1,5 +1,5 @@
-%include "argparse/parser.inc"
-%include "anrc/callclib.inc"
+%include "anrc/all"
+%include "argparse/all"
 
 global parse_user_options
 

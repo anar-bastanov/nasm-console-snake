@@ -1,5 +1,5 @@
-%include "anrc/callclib.inc"
-%include "argparse/parser.inc"
+%include "anrc/all"
+%include "argparse/all"
 
 global main
 global program_exit_early

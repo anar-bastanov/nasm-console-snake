@@ -1,4 +1,4 @@
-%include "anrc/_callclib_argc.internal.inc"
+%include "anrc/callclib_argc.inc"
 
 %define NON_NEGATIVE(value) %cond(value < 0, 0, value)
 
@@ -122,6 +122,8 @@
 
     global __callclib%1
 
+    section .text.anrc.callclib%1
+
     __callclib%1:
         PRESERVATION
         INITIALIZATION %1
@@ -129,8 +131,6 @@
         RESTORATION
         ret
 %endmacro
-
-section .text
 
 %assign i 0
 %rep CALLCLIB_MAX_ARG_COUNT + 1

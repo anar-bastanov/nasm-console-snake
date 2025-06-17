@@ -3,7 +3,7 @@ global string_n_compare
 global string_compare_normalized
 global string_n_compare_normalized
 
-section .text
+section .text.strutils.comparison
 
 string_compare:
     xor edx, edx

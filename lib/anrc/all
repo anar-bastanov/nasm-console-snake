@@ -1,0 +1,7 @@
+%ifndef __ANRC_LIB_ALL__
+%define __ANRC_LIB_ALL__
+
+%include "anrc/callclib_argc.inc"
+%include "anrc/callclib.inc"
+
+%endif

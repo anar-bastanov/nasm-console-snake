@@ -1,0 +1,13 @@
+# This file defines which libraries from /lib/ will be included in the build.
+# Only libraries listed below will have their interface files and source files processed.
+
+[core]
+anrc           ; C interop and global linkage for __anrc64
+argparse       ; Command-line argument parser
+
+[utilities]
+-- strutils       ; String manipulation helpers
+-- memutils       ; Memory manipulation utilities
+
+[visuals]
+-- styling        ; ANSI styling macros for terminal output

@@ -1,0 +1,6 @@
+%ifndef __STYLING_LIB_ALL__
+%define __STYLING_LIB_ALL__
+
+%include "styling/ansi.inc"
+
+%endif
