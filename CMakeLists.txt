@@ -10,7 +10,7 @@ set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(VIRTUAL_INC_DIR ${CMAKE_BINARY_DIR}/nasm_includes)
 file(MAKE_DIRECTORY "${VIRTUAL_INC_DIR}")
 
-set(DEPENDENCY_FILENAME "DEPENDENCIES.list")
+set(DEPENDENCY_FILENAME "dependencies.list")
 set(PROJECT_DEP_FILE "${SRC_DIR}/${DEPENDENCY_FILENAME}")
 
 # ---------------------- Dependency Parser ----------------------

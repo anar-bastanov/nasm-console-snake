@@ -1,32 +1,56 @@
-# QR Code Generator (Assembly, NASM)
+# qrgen - Command-Line QR Code Generator
 
-This repository contains a terminal-based QR code generator implemented in x86-64 assembly using NASM. It is fully cross-platform and runs in the command-line interface (CLI) without requiring external libraries.
+`qrgen` is a fast, dependency-free, cross-platform command-line utility for generating QR codes. It encodes arbitrary text into customizable QR codes with fine-grained control over encoding logic and output formats.
 
-The project uses the `__anrc64` calling convention, documented in [`CONVENTION.md`](doc/CONVENTION.md).
-
-A visual overview and additional documentation are available on the [GitHub Wiki](https://github.com/anar-bastanov/qr-generator/wiki).
+---
 
 ## Features
 
-### QR Code Capabilities
-* Generates standard QR codes with full error correction support (Levels L, M, Q, H)
-* Supports alphanumeric and byte encoding modes
-* Visual rendering of QR codes directly in the terminal using ANSI graphics
-* Configurable output size and scale (grid units)
-* Optimized for speed and small binary size
+* Input from direct text, file, or stdin
+* Output in plain text, PBM image, bitstream, hex, binary, or escaped byte stream
+* Full control over QR version, error correction level, mode, and mask
+* Terminal rendering using UTF-8 blocks (e.g., `██`)
+* Adjustable scaling, margin, polarity, and module rendering
+* Lightweight and portable — no external dependencies
+* Cross-platform support: builds on Linux and Windows
 
-### Technical Highlights
-* Fully written in x86-64 NASM assembly
-* Cross-platform: works on both Linux and Windows
-* No dependencies or runtime libraries required
-* Modular and extensible structure (e.g., encoding logic, render logic, utilities)
-* Dual build support via Makefile and CMake
+---
 
-## Building
+## Installation
 
-Build instructions for supported platforms are available in [`BUILD.md`](doc/BUILD.md).
+See [`doc/BUILD.md`](doc/build.md) for platform-specific build instructions using CMake.
+
+---
+
+## Usage
+
+Refer to [`doc/USAGE.md`](doc/usage.md) for the full CLI help strings (`--help`, `--help-verbose`) and detailed usage patterns.
+
+---
+
+## Examples
+
+See [`doc/EXAMPLES.md`](doc/example.md) for input/output demonstrations and QR code rendering examples.
+
+---
+
+## Documentation
+
+### For Users
+
+* [`build.md`](doc/build.md) — Build and install instructions
+* [`usage.md`](doc/usage.md) — CLI flags and usage breakdown
+* [`examples.md`](doc/examples.md) — Practical examples and outputs
+
+### For Developers
+
+- [`calling_convention.md`](doc/calling_convention.md) — Details of the `__anrc64` calling convention
+- [`naming_convention.md`](doc/naming_convention.md) — Naming scheme for functions, files, and symbols
+* [`architecture.md`](doc/architecture.md) — Internal design, file layout, and logic flow
+
+---
 
 ## License
 
-Copyright © 2025 Anar Bastanov  
-Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+Copyright © 2025 Anar Bastanov
+Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)

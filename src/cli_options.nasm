@@ -20,8 +20,8 @@ parse_user_options:
         test al, al
         jnz .loop
 
-    ; lea r8, [rel str_help_command]
-    ; callclib 1, printf
+    lea r8, [rel str_help_verbose_command]
+    callclib 1, printf
 
     pop r9
     pop r8
@@ -123,7 +123,7 @@ str_help_command:
     db "Input/Output:", 10
     db "  -i, --input <file>        Read input text from file or stdin (-)", 10
     db "  -o, --output <file>       Write result to file or stdout (-)", 10
-    db "  -f, --format <txt|pbm|bin|hex|bits|c>", 10
+    db "  -f, --format <txt|pbm|bits|hex|bin|c>", 10
     db "                            Output format (default: txt)", 10
     db 10
     db "Encoding:", 10
@@ -169,11 +169,11 @@ str_help_verbose_command:
     db "      Terminal text output (default)", 10
     db "  -f, --format pbm", 10
     db "      Monochrome image (Portable Bitmap P1 format)", 10
-    db "  -f, --format bin", 10
+    db "  -f, --format bits", 10
     db "      Raw binary stream of module bits (bit-packed, no newlines)", 10
     db "  -f, --format hex", 10
     db "      Hexadecimal string form (e.g., FF00A1C2...)", 10
-    db "  -f, --format bits", 10
+    db "  -f, --format bin", 10
     db "      Binary string form (e.g., 01001101...)", 10
     db "  -f, --format c", 10
     db "      Escaped byte stream for embedding (e.g., \\xFF\\x00)", 10

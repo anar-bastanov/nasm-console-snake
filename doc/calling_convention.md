@@ -36,17 +36,20 @@ A function **may** define a custom layout for oversized arguments across multipl
 Floating-point and SIMD arguments are passed in the following registers, in order:
 
 ```
-xmm1–xmm7, ymm1–ymm7, zmm1–zmm7
+xmm1, xmm2, xmm3, xmm4, xmm5, xmm6, xmm7
 ```
+
+* These registers are used by default for scalar and 128-bit SIMD arguments.
+
+Wider SIMD types (`ymm`, `zmm`) *may* be used instead of `xmm` if:
+
+* The function explicitly documents such usage in its specification.
 
 If a function requires more than seven floating-point or SIMD arguments:
 
-* The remaining arguments **shall** be passed on the stack.
-* Stack-passed SIMD arguments **shall** be placed after all integer arguments, regardless of source code ordering.
+* The remaining arguments *shall* be passed on the stack.
 
-Only `xmm1–xmm7` are used for floating-point argument passing by default. Wider SIMD types (i.e., `ymm`, `zmm`) **may** be used if:
-
-* The function explicitly documents such usage in its specification.
+* Stack-passed SIMD arguments *shall* be placed after all integer arguments, regardless of source code ordering.
 
 ---
 
@@ -55,8 +58,9 @@ Only `xmm1–xmm7` are used for floating-point argument passing by default. Wide
 ### 2.1 Integer and Pointer Return Values
 
 * Simple integer or pointer return values **shall** be returned in `rax`.
-* If the return value spans multiple registers, the exact registers used **shall** be defined by the function’s specification.
-* A common layout is `rax:rdx`, but this is not required.
+* If the return value spans multiple registers, the order shall be
+`rdx:rcx:rbx:rax`, with `rax` holding the least significant bits.
+* The number of registers used shall be documented in each function's specification.
 
 If the return value is too large to fit in registers:
 
@@ -124,8 +128,8 @@ If multiple floating-point values are returned (e.g., a pair of floats):
 | `[xyz]mm1–[xyz]mm15`  | Volatile (caller-saved)  |
 | `[xyz]mm16–[xyz]mm31` | Preserved (callee-saved) |
 
-* `xmm0`, `ymm0`, and `zmm0` are considered volatile and used for return values.
-* Other SIMD registers used for return values are treated analogously.
+* On systems where AVX-512 is present and enabled, zmm16–zmm31 shall be treated as callee-preserved.
+* On systems without AVX-512, their content is undefined after a function call.
 
 ---
 
@@ -139,18 +143,3 @@ When calling external C functions or interacting with other ABIs:
 * The `r15` register **may** be used in wrappers but must not be modified in regular functions.
 * For this convention’s register behavior, see [§4.1](#41-general-purpose-registers) and [§4.2](#42-simd-registers).
 
----
-
-## 6. Naming Conventions and Labels
-
-This convention does not enforce strict naming rules. However, the following practices are recommended:
-
-* Global labels and function names: `snake_case`
-* Local/internal labels (scoped to functions or files): `.snake_case`
-
----
-
-## 7. File Types and Includes
-
-* Source files **must** use the `.nasm` extension.
-* Include files (for macros, constants, declarations) **must** use the `.inc` extension.
