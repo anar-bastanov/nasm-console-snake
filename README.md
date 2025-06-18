@@ -2,8 +2,6 @@
 
 `qrgen` is a fast, dependency-free, cross-platform command-line utility for generating QR codes. It encodes arbitrary text into customizable QR codes with fine-grained control over encoding logic and output formats.
 
----
-
 ## Features
 
 * Input from direct text, file, or stdin
@@ -14,25 +12,17 @@
 * Lightweight and portable — no external dependencies
 * Cross-platform support: builds on Linux and Windows
 
----
-
 ## Installation
 
-See [`doc/BUILD.md`](doc/build.md) for platform-specific build instructions using CMake.
-
----
+See [`doc/build.md`](doc/build.md) for platform-specific build instructions using CMake.
 
 ## Usage
 
-Refer to [`doc/USAGE.md`](doc/usage.md) for the full CLI help strings (`--help`, `--help-verbose`) and detailed usage patterns.
-
----
+Refer to [`doc/usage.md`](doc/usage.md) for the full CLI help strings (`--help`, `--help-verbose`) and detailed usage patterns.
 
 ## Examples
 
-See [`doc/EXAMPLES.md`](doc/example.md) for input/output demonstrations and QR code rendering examples.
-
----
+See [`doc/examples.md`](doc/example.md) for input/output demonstrations and QR code rendering examples.
 
 ## Documentation
 
@@ -47,8 +37,6 @@ See [`doc/EXAMPLES.md`](doc/example.md) for input/output demonstrations and QR c
 - [`calling_convention.md`](doc/calling_convention.md) — Details of the `__anrc64` calling convention
 - [`naming_convention.md`](doc/naming_convention.md) — Naming scheme for functions, files, and symbols
 * [`architecture.md`](doc/architecture.md) — Internal design, file layout, and logic flow
-
----
 
 ## License
 
