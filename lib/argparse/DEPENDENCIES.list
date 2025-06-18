@@ -1,4 +1,2 @@
-# This file defines which libraries from /lib/ will be included in the build.
-# Only libraries listed below will have their interface files and source files processed.
-
+[argparse dependencies]
 strutils        ; String manipulation helpers

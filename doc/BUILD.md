@@ -5,8 +5,8 @@ This project is a terminal-based QR code generator written entirely in NASM. It 
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/yourname/nasm-qr-generator.git
-cd nasm-qr-generator
+git clone https://github.com/anar-bastanov/qr-generator.git
+cd qr-generator
 ```
 
 ## Prerequisites

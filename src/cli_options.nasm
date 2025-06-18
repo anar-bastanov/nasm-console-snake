@@ -38,7 +38,7 @@ handler_o:
 handler_output:
     ret
 
-section .rodata
+section .data
 
 cli_option_list:
     .start equ __LINE__
@@ -113,6 +113,8 @@ cli_option_list:
     .end equ __LINE__
 
 cli_option_list_count equ (cli_option_list.end - cli_option_list.start - 1) / 2
+
+section .rodata
 
 str_help_command:
     db "Usage:", 10
