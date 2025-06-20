@@ -1,18 +1,104 @@
 %include "anrc/all"
 %include "argparse/all"
+%include "main.inc"
 
 global parse_user_options
 
-extern main_args_container
+section .data
+
+cli_option_list:
+%xdefine CLI_OPTION_LIST_START __LINE__
+    ._0:  dq handler_argument
+          db "", 0
+    ._1:  dq handler_i
+          db "-i", 0
+    ._2:  dq handler_input
+          db "--input", 0
+    ._3:  dq handler_o
+          db "-o", 0
+    ._4:  dq handler_output
+          db "--output", 0
+    ._5:  dq handler_argument
+          db "-f", 0
+    ._6:  dq handler_argument
+          db "--format", 0
+    ._7:  dq handler_argument
+          db "-v", 0
+    ._8:  dq handler_argument
+          db "--version", 0
+    ._9:  dq handler_argument
+          db "-e", 0
+    ._10: dq handler_argument
+          db "--eclevel", 0
+    ._11: dq handler_argument
+          db "-m", 0
+    ._12: dq handler_argument
+          db "--mode", 0
+    ._13: dq handler_argument
+          db "-k", 0
+    ._14: dq handler_argument
+          db "--format", 0
+    ._15: dq handler_argument
+          db "-p", 0
+    ._16: dq handler_argument
+          db "--pack", 0
+    ._17: dq handler_argument
+          db "-S", 0
+    ._18: dq handler_argument
+          db "--scale", 0
+    ._19: dq handler_argument
+          db "-M", 0
+    ._20: dq handler_argument
+          db "--margin", 0
+    ._21: dq handler_argument
+          db "-I", 0
+    ._22: dq handler_argument
+          db "--invert", 0
+    ._23: dq handler_argument
+          db "--module-on", 0
+    ._24: dq handler_argument
+          db "--module-off", 0
+    ._25: dq handler_argument
+          db "-n", 0
+    ._26: dq handler_argument
+          db "--info", 0
+    ._27: dq handler_argument
+          db "-q", 0
+    ._28: dq handler_argument
+          db "--quiet", 0
+    ._29: dq handler_argument
+          db "-h", 0
+    ._30: dq handler_argument
+          db "--help", 0
+    ._31: dq handler_argument
+          db "-H", 0
+    ._32: dq handler_argument
+          db "--help-verbose", 0
+    ._33: dq handler_argument
+          db "--lucky", 0
+    ._34: dq handler_unknown_option
+          db "?", 0
+%xdefine CLI_OPTION_LIST_END __LINE__
+
+%xdefine CLI_OPTION_LIST_COUNT (CLI_OPTION_LIST_END - CLI_OPTION_LIST_START - 1) / 2
 
 section .text
 
 parse_user_options:
     push r8
     push r9
+    sub rsp, CLI_OPTION_LIST_COUNT * 8
+
+%assign i 0
+%rep CLI_OPTION_LIST_COUNT
+    lea rax, [rel cli_option_list._%[i]]
+    mov [rsp + i * 8], rax
+    %assign i i + 1
+%endrep
 
     lea r8, [rel main_args_container]
-    lea r9, [rel cli_option_list]
+    mov r9, rsp
+    mov r10d, CLI_OPTION_LIST_COUNT - 1
     call args_initialize
 
     .loop:
@@ -20,101 +106,81 @@ parse_user_options:
         test al, al
         jnz .loop
 
-    lea r8, [rel str_help_verbose_command]
-    callclib 1, printf
+;     lea r8, [rel str_help_command]
+;     callclib 1, printf
 
+    add rsp, CLI_OPTION_LIST_COUNT * 8
     pop r9
     pop r8
     ret
 
-handler_text:
+handler_argument:
+    push r8
+    push r9
+    push r10
+    mov r10d, r9d
+    mov r9, [r8]
+    lea r8, [rel str_printf_1]
+    callclib 3, printf
+    pop r10
+    pop r9
+    pop r8
     ret
 
 handler_i:
 handler_input:
+    push r8
+    push r9
+    push r10
+    mov r10d, r9d
+    mov r9, [r8]
+    lea r8, [rel str_printf_2]
+    callclib 3, printf
+    pop r10
+    pop r9
+    pop r8
     ret
 
 handler_o:
 handler_output:
+    push r8
+    push r9
+    push r10
+    mov r10d, r9d
+    mov r9, [r8]
+    lea r8, [rel str_printf_3]
+    callclib 3, printf
+    pop r10
+    pop r9
+    pop r8
     ret
 
-section .data
-
-cli_option_list:
-    .start equ __LINE__
-    ._0:  dq handler_text
-          db 0, "", 0
-    ._1:  dq handler_text
-          db 0, "i", 0
-    ._2:  dq handler_text
-          db 0, "-input", 0
-    ._3:  dq handler_text
-          db 0, "o", 0
-    ._4:  dq handler_text
-          db 0, "-output", 0
-    ._5:  dq handler_text
-          db 0, "f", 0
-    ._6:  dq handler_text
-          db 0, "-format", 0
-    ._7:  dq handler_text
-          db 0, "v", 0
-    ._8:  dq handler_text
-          db 0, "-version", 0
-    ._9:  dq handler_text
-          db 0, "e", 0
-    ._10: dq handler_text
-          db 0, "-eclevel", 0
-    ._11: dq handler_text
-          db 0, "m", 0
-    ._12: dq handler_text
-          db 0, "-mode", 0
-    ._13: dq handler_text
-          db 0, "k", 0
-    ._14: dq handler_text
-          db 0, "-format", 0
-    ._15: dq handler_text
-          db 0, "p", 0
-    ._16: dq handler_text
-          db 0, "-pack", 0
-    ._17: dq handler_text
-          db 0, "S", 0
-    ._18: dq handler_text
-          db 0, "-scale", 0
-    ._19: dq handler_text
-          db 0, "M", 0
-    ._20: dq handler_text
-          db 0, "-margin", 0
-    ._21: dq handler_text
-          db 0, "I", 0
-    ._22: dq handler_text
-          db 0, "-invert", 0
-    ._23: dq handler_text
-          db 0, "-module-on", 0
-    ._24: dq handler_text
-          db 0, "-module-off", 0
-    ._25: dq handler_text
-          db 0, "n", 0
-    ._26: dq handler_text
-          db 0, "-info", 0
-    ._27: dq handler_text
-          db 0, "q", 0
-    ._28: dq handler_text
-          db 0, "-quiet", 0
-    ._29: dq handler_text
-          db 0, "h", 0
-    ._30: dq handler_text
-          db 0, "-help", 0
-    ._31: dq handler_text
-          db 0, "H", 0
-    ._32: dq handler_text
-          db 0, "-help-verbose", 0
-    ._33: dq handler_text
-          db 0, "-lucky", 0
-    .end equ __LINE__
-
-cli_option_list_count equ (cli_option_list.end - cli_option_list.start - 1) / 2
+handler_unknown_option:
+    push r8
+    push r9
+    push r10
+    mov r10d, r9d
+    mov r9, [r8]
+    lea r8, [rel str_printf_4]
+    callclib 3, printf
+    pop r10
+    pop r9
+    pop r8
+    ret
 
 section .rodata
+
+str_printf_1:
+    db "argument: at %s, count %i", 10, 0
+
+str_printf_2:
+    db "input: at %s, count %i", 10, 0
+
+str_printf_3:
+    db "output: at %s, count %i", 10, 0
+
+str_printf_4:
+    db "unknown: at %s, count %i", 10, 0
 
 str_help_command:
     db "Usage:", 10

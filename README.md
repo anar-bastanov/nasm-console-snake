@@ -9,7 +9,7 @@
 * Full control over QR version, error correction level, mode, and mask
 * Terminal rendering using UTF-8 blocks (e.g., `██`)
 * Adjustable scaling, margin, polarity, and module rendering
-* Lightweight and portable — no external dependencies
+* Lightweight and portable - no external dependencies
 * Cross-platform support: builds on Linux and Windows
 
 ## Installation
@@ -22,21 +22,21 @@ Refer to [`doc/usage.md`](doc/usage.md) for the full CLI help strings (`--help`,
 
 ## Examples
 
-See [`doc/examples.md`](doc/example.md) for input/output demonstrations and QR code rendering examples.
+See [`doc/examples.md`](doc/examples.md) for input/output demonstrations and QR code rendering examples.
 
 ## Documentation
 
 ### For Users
 
-* [`build.md`](doc/build.md) — Build and install instructions
-* [`usage.md`](doc/usage.md) — CLI flags and usage breakdown
-* [`examples.md`](doc/examples.md) — Practical examples and outputs
+* [`build.md`](doc/build.md) - Build and install instructions
+* [`usage.md`](doc/usage.md) - CLI flags and usage breakdown
+* [`examples.md`](doc/examples.md) - Practical examples and outputs
 
 ### For Developers
 
-- [`calling_convention.md`](doc/calling_convention.md) — Details of the `__anrc64` calling convention
-- [`naming_convention.md`](doc/naming_convention.md) — Naming scheme for functions, files, and symbols
-* [`architecture.md`](doc/architecture.md) — Internal design, file layout, and logic flow
+* [`calling_convention.md`](doc/calling_convention.md) - Details of the `__anrc64` calling convention
+* [`naming_convention.md`](doc/naming_convention.md) - Naming scheme for functions, files, and symbols
+* [`architecture.md`](doc/architecture.md) - Internal design, file layout, and logic flow
 
 ## License
 

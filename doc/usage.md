@@ -2,16 +2,12 @@
 
 This document provides the full reference for all options supported by `qrgen`.
 
----
-
 ## Syntax
 
 ```
 qrgen <text> [options]
 qrgen -i <file> [options]
 ```
-
----
 
 ## Help (`--help`)
 
@@ -48,8 +44,6 @@ Misc:
   -H, --help-verbose        Show detailed option breakdown
       --lucky               ???
 ```
-
----
 
 ## Verbose Help (`--help-verbose`)
 

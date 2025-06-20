@@ -1,2 +1,2 @@
 [argparse dependencies]
-strutils        ; String manipulation helpers
+strutils
