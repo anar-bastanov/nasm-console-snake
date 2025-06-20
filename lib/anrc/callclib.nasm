@@ -112,7 +112,7 @@
         pop r14
     %endmacro
 %else
-    %fatal Neither WINDOWS nor LINUX was defined.
+    %fatal Neither `WINDOWS` nor `LINUX` was defined.
 %endif
 
 %macro __callclib_var 1

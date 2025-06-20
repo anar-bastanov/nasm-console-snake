@@ -40,5 +40,5 @@ See [`doc/examples.md`](doc/examples.md) for input/output demonstrations and QR 
 
 ## License
 
-Copyright © 2025 Anar Bastanov
-Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
+Copyright &copy; 2025 Anar Bastanov  
+Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).

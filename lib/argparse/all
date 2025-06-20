@@ -2,6 +2,7 @@
 %define __ARGPARSE_LIB_IMPORT__
 
 %include "argparse/args_container.inc"
+%include "argparse/option_list_builder.inc"
 
 extern _args_collect_from_main
 extern args_initialize

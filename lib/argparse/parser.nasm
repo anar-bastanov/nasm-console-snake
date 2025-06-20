@@ -13,7 +13,7 @@ global args_parse_next
     %define argc_reg rdi
     %define argv_reg rsi
 %else
-    %fatal Neither WINDOWS nor LINUX was defined.
+    %fatal Neither `WINDOWS` nor `LINUX` was defined.
 %endif
 
 section .text
@@ -24,8 +24,8 @@ _args_collect_from_main:
     ret
 
 args_initialize:
-    mov [r8 + args_container_t.options_list], r9
-    mov [r8 + args_container_t.options_list_count], r10d
+    mov [r8 + args_container_t.option_list], r9
+    mov [r8 + args_container_t.option_list_count], r10d
     mov dword [r8 + args_container_t.index], 1
     ret
 
@@ -36,15 +36,15 @@ args_reset:
 args_parse_next:
     push r8
     push r9
-    push r10  ; option
-    push r11  ; argv start
-    push r12  ; argv end
-    push r13  ; container
+    push r10
+    push r11
+    push r12
+    push r13
 
-    mov r13, r8
     xor eax, eax
-    mov r12d, [r13 + args_container_t.index]
-    cmp r12d, [r13 + args_container_t.argc]
+    mov r12d, [r8 + args_container_t.index]
+    cmp r12d, [r8 + args_container_t.argc]
+    mov r13, r8
     jnb .return
 
     mov r11d, r12d
@@ -54,8 +54,7 @@ args_parse_next:
         mov rax, [r13 + args_container_t.argv]
         mov rax, [rax + r12 * 8]
 
-        mov cl, [rax]
-        cmp cl, '-'
+        cmp byte [rax], '-'
         je .is_option
 
         test r10d, r10d
@@ -70,13 +69,14 @@ args_parse_next:
         inc r12d    
         mov r8, [r13 + args_container_t.argv]
         mov r8, [r8 + r11 * 8]
+        inc r8
 
         .loop_match_option_begin:
-            cmp r10d, [r13 + args_container_t.options_list_count]
+            cmp r10d, [r13 + args_container_t.option_list_count]
             jnb .loop_match_option_end
 
             inc r10d
-            mov r9, [r13 + args_container_t.options_list]
+            mov r9, [r13 + args_container_t.option_list]
             mov r9, [r9 + r10 * 8]
             add r9, 8
             call string_compare
@@ -88,7 +88,7 @@ args_parse_next:
         jb .loop_find_option_begin
     .loop_find_option_end:
 
-    mov rax, [r13 + args_container_t.options_list]
+    mov rax, [r13 + args_container_t.option_list]
     mov rax, [rax + r10 * 8]
     mov r8, [r13 + args_container_t.argv]
     lea r8, [r8 + r11 * 8]
